@@ -55,7 +55,7 @@ class Trial:
         if self.bottom_degree < 710:
             bottom = field.Field(self.bottom_degree +90, (fCenter[0] + config.fieldSize[0], fCenter[1]), config.fieldSize, config.lineSpacing)
             fields.add(bottom)
-	# Change to vertical xstart not ystart
+    # Change to vertical xstart not ystart
         if random.randint(0, 1) == 0:
             xstart = fCenter[0] + random.randint(10, 25)
         else:
@@ -117,7 +117,7 @@ class Trial:
         print a line of data for this trial to the file named cd in outFile
         """
         of = open(ofile, 'a')
-        of.write("%d %d %d %d %d %d %d %f %d" % (self.trial_type, self.top_degree, self.mid_degree, \
+        of.write("%d %d %d %d %d %d %d %f %d\n" % (self.trial_type, self.top_degree, self.mid_degree, \
                 self.bottom_degree, self.orientation, self.gap, self.pse, \
                 math.degrees(math.atan2(self.pse,config.yDotDistance)), self.n_adjust))
 

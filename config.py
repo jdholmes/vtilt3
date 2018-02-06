@@ -30,15 +30,15 @@ if sys.platform == 'darwin':
 else:
     dbuf = False
 
-dataFileHeader = (";Col -- 1 Condition 0 = Contrast, 1 = center, 2 = perif, 3 = no lines",\
-    ";Col 2 -- Top slope",\
-    ";Col 3 -- Mid slope",\
-    ";Col 4 -- Bottom Slope (720 signifies no lines)",\
-    ";Col 5 -- Orientation (not used)",\
-    ";Col 6 -- Gap (not used)",\
-    ";Col 7 -- pse in distance in pixels above or below the standard.",\
-    ";Col 8 -- pse in degrees departure from horizontal.",\
-    ";Col 9 -- Number of adjustments, i.e., up and down arrows typed.")
+dataFileHeader = (";Col -- 1 Condition 0 = Contrast, 1 = center, 2 = perif, 3 = no lines\n",\
+    ";Col 2 -- Top slope\n",\
+    ";Col 3 -- Mid slope\n",\
+    ";Col 4 -- Bottom Slope (720 signifies no lines)\n",\
+    ";Col 5 -- Orientation (not used)\n",\
+    ";Col 6 -- Gap (not used)\n",\
+    ";Col 7 -- pse in distance in pixels above or below the standard.\n",\
+    ";Col 8 -- pse in degrees departure from horizontal.\n",\
+    ";Col 9 -- Number of adjustments, i.e., up and down arrows typed.\n")
 
 # file with instructions
 instructions = "flank.txt"

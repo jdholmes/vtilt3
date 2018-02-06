@@ -36,9 +36,8 @@ def instruct(fname, mess, tit):
     """
     Uses TKinter to display instructions in a file, fname.
     """
-    f = open(fname, "r")
-    t = f.readlines()
-    f.close
+    with open(fname, "r") as f:
+        t = f.readlines()
     tkutil.textbox(message=mess, title=tit, text=t)
 
 def prepare(blockLab):
@@ -101,6 +100,7 @@ def run(blockList):
     for block in blockList:
         for currentTrial in block:
             currentTrial.give()
+
         # give rest between blocks, but not after last block
         if nblock < len(blockList):
             nblock += 1
@@ -121,9 +121,9 @@ def saveTrials(blockList, exp, sub):
     
 
     
-    of.write(";","%d/%d/%d; %d:%02d" % (now.month, now.day, now.year, now.hour, now.minute))
-    of.write(";","Experimenter's name:" % exp)
-    of.write(";","Subject's name:", sub)
+    of.write("; %d/%d/%d; %d:%02d\n" % (now.month, now.day, now.year, now.hour, now.minute))
+    of.write("; Experimenter's name: %s\n" % exp)
+    of.write("; Subject's name: %s\n" % sub)
     for line in config.dataFileHeader:
         of.write(line)
     of.close()
@@ -153,14 +153,14 @@ def main():
     #   displaySplash(config.splash)
     #   Do TK stuff before going fullscreen
     #   OK box does not appear on Linux?
-    """   instruct("welcome.txt", "To continue click OK", "Illusion Experiment")
-    pygame.display.update()
+    instruct("welcome.txt", "To continue click OK", "Illusion Experiment")
+    #pygame.display.update()
     experimenter = get_name("Type the Experimenter's name: Jane Doe", "Experimenter's name")
-    pygame.display.update()
+    # pygame.display.update()
     subject = get_name("Type the Participant's name: Jane Doe", "Participant's name")
-    pygame.display.update()
+    #pygame.display.update()
     instruct(config.instructions, "To continue click OK", "Instructions")
-    """
+   
     #   Reset screen properties to highest res full screen and double buffered
     modes = pygame.display.list_modes()
     # modes[0] is too high a res for some machines -- step back to modes[1]    
@@ -175,7 +175,7 @@ def main():
         msgScreen("Begin practice trials", 2)
         practiceList = prepare(config.practiceLables)
         run(practiceList)
-
+    msgScreen("Start Trials",5)
     #   Make trials, run, and save
  #   msgScreen("Begin regular trials", 2)
     blockList = prepare(config.blockLables)
