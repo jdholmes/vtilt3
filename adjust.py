@@ -149,7 +149,7 @@ def displaySplash(pic):
     pygame.display.update()
     
 def main():
-    pygame.init()  
+
     #   displaySplash(config.splash)
     #   Do TK stuff before going fullscreen
     #   OK box does not appear on Linux?
@@ -160,10 +160,12 @@ def main():
     subject = get_name("Type the Participant's name: Jane Doe", "Participant's name")
     #pygame.display.update()
     instruct(config.instructions, "To continue click OK", "Instructions")
-   
+    pygame.init()   
     #   Reset screen properties to highest res full screen and double buffered
     modes = pygame.display.list_modes()
     # modes[0] is too high a res for some machines -- step back to modes[1]    
+
+    
     if config.dbuf == True:
         screen = pygame.display.set_mode(modes[0], pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.FULLSCREEN)
     else:
