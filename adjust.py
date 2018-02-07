@@ -111,22 +111,18 @@ def saveTrials(blockList, exp, sub):
     Save the data for the subject in a file where the filename is based
     on the participants name, e.g., joe blow has filename blowjoe.dat
     """
+    now = datetime.datetime.now()
     s = sub.split(" ")
     if len(s) >= 2:
         ofile = s[1]+s[0]+".dat"
     else:
         ofile = s[0]+".dat"
-    of = open(ofile, 'a')
-    now = datetime.datetime.now()
-    
-
-    
-    of.write("; %d/%d/%d; %d:%02d\n" % (now.month, now.day, now.year, now.hour, now.minute))
-    of.write("; Experimenter's name: %s\n" % exp)
-    of.write("; Subject's name: %s\n" % sub)
-    for line in config.dataFileHeader:
-        of.write(line)
-    of.close()
+    with open(ofile, 'a') as of:
+        of.write("; %d/%d/%d; %d:%02d\n" % (now.month, now.day, now.year, now.hour, now.minute))
+        of.write("; Experimenter's name: %s\n" % exp)
+        of.write("; Subject's name: %s\n" % sub)
+        for line in config.dataFileHeader:
+            of.write(line)
     for block in blockList:
         for currTrial in block:
             currTrial.printOut(ofile)
@@ -185,7 +181,8 @@ def main():
     saveTrials(blockList, experimenter, subject)
     #   Say goodnight, Gracie
     msgScreen("That's all.  Thanks for your participation.",5)
-
+    pygame.quit()
+    
 if __name__ == "__main__":
     main()
 
