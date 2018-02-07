@@ -116,8 +116,8 @@ class Trial:
         """
         print a line of data for this trial to the file named cd in outFile
         """
-        of = open(ofile, 'a')
-        of.write("%d %d %d %d %d %d %d %f %d\n" % (self.trial_type, self.top_degree, self.mid_degree, \
+        with open(ofile, 'a') as of:
+            of.write("%d %d %d %d %d %d %d %f %d\n" % (self.trial_type, self.top_degree, self.mid_degree, \
                 self.bottom_degree, self.orientation, self.gap, self.pse, \
                 math.degrees(math.atan2(self.pse,config.yDotDistance)), self.n_adjust))
 
