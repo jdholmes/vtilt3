@@ -1,4 +1,5 @@
 *.pyc
 *.bak
 *.dat
+./__pycashe__/*.pyc
 
