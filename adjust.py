@@ -76,13 +76,11 @@ def prepare(blockLab):
 
     return blockList
 
-def msgScreen(text, wait_time):
+def msgScreen(text, wait_time, screen, background):
     """
     Displays text on a single line centered in the display for 'time' duration.
     """
-    screen = pygame.display.get_surface()
-    background = pygame.Surface(screen.get_size())
-    background = background.convert()
+
     background.fill(config.bg)
     screen.blit(background,(0,0))
     font = pygame.font.SysFont("Times New Roman", 30)
@@ -95,19 +93,19 @@ def msgScreen(text, wait_time):
     time.sleep(wait_time)
     #pygame.time.delay(time*1000)
     
-def run(blockList):
+def run(blockList, screen, background):
     """
     Get trial for the current block.  Call give() to run the trial.
     """
     nblock = 1
     for block in blockList:
         for currentTrial in block:
-            currentTrial.give()
+            currentTrial.give(screen, background)
 
         # give rest between blocks, but not after last block
         if nblock < len(blockList):
             nblock += 1
-            msgScreen("Take a short break", 5)
+            msgScreen("Take a short break", 5, screen, background)
    
 def saveTrials(blockList, exp, sub):
     """
@@ -169,21 +167,23 @@ def main():
         screen = pygame.display.set_mode(modes[7], pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.FULLSCREEN)
     else:
         screen = pygame.display.set_mode(modes[7], pygame.FULLSCREEN)
-
+    screen = pygame.display.get_surface()
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
     pygame.mouse.set_visible(False)
     #   if practice trials are called for, make them and run them
     if len(config.practiceLables) > 0 :
-        msgScreen("Begin practice trials", 2)
+        msgScreen("Begin practice trials", 2, screen, background)
         practiceList = prepare(config.practiceLables)
-        run(practiceList)
-    msgScreen("Start Trials",5)
+        run(practiceList, screen, background)
+    msgScreen("Start Trials",5, screen, background)
     #   Make trials, run, and save
  #   msgScreen("Begin regular trials", 2)
     blockList = prepare(config.blockLables)
-    run(blockList)
+    run(blockList, screen, background)
     saveTrials(blockList, experimenter, subject)
     #   Say goodnight, Gracie
-    msgScreen("That's all.  Thanks for your participation.",5)
+    msgScreen("That's all.  Thanks for your participation.", 5, screen, background)
     pygame.quit()
     
 if __name__ == "__main__":

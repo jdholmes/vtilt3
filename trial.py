@@ -25,13 +25,11 @@ class Trial:
         self.pse = 0.0
         self.standard = 0
 
-    def give(self):
+    def give(self, screen, background):
         """
         give a trial
         """
-        screen = pygame.display.get_surface()
-        background = pygame.Surface(screen.get_size())
-        background = background.convert()
+
         background.fill(config.fg)
         colorKey = [0, 0, 2]
         screen.set_colorkey(colorKey, RLEACCEL)
