@@ -9,6 +9,7 @@ import field
 import trial
 import tkutil
 import datetime
+import time
 """
 Runs a generic experiment; global parameters are in config.py.  Specific
 parameters for each trial are read for lines in a parms file. Trial.py
@@ -75,7 +76,7 @@ def prepare(blockLab):
 
     return blockList
 
-def msgScreen(text, time):
+def msgScreen(text, wait_time):
     """
     Displays text on a single line centered in the display for 'time' duration.
     """
@@ -89,8 +90,10 @@ def msgScreen(text, time):
     w, h = font.size(text)
     x, y = screen.get_rect().center
     screen.blit(s, (x - w/2, y - h/2))
-    pygame.display.flip()
-    pygame.time.delay(time*1000)
+    time.sleep(1)
+    pygame.display.update()
+    time.sleep(wait_time)
+    #pygame.time.delay(time*1000)
     
 def run(blockList):
     """
@@ -163,9 +166,9 @@ def main():
 
     
     if config.dbuf == True:
-        screen = pygame.display.set_mode(modes[0], pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.FULLSCREEN)
+        screen = pygame.display.set_mode(modes[7], pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.FULLSCREEN)
     else:
-        screen = pygame.display.set_mode(modes[0], pygame.FULLSCREEN)
+        screen = pygame.display.set_mode(modes[7], pygame.FULLSCREEN)
 
     pygame.mouse.set_visible(False)
     #   if practice trials are called for, make them and run them

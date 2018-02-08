@@ -26,7 +26,7 @@ loopDelay = 40
 xDotDistance = 300
 yDotDistance = 250
 if sys.platform == 'darwin':
-    dbuf = True
+    dbuf = False
 else:
     dbuf = False
 

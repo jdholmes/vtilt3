@@ -110,7 +110,7 @@ class Trial:
         self.pse = (var.rect.centerx - fCenter[0])
         self.n_adjust = cnt
         screen.blit(background, (0,0))
-        pygame.display.flip()
+        pygame.display.update()
 
     def printOut(self, ofile):
         """
