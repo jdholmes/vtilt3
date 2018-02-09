@@ -54,9 +54,9 @@ def prepare(blockLab):
     blockList = []
     for blockName in blockLab:
         trialList = []         
-  
+
         for repeat in range(config.blockRepeat):
-            infile = open(config.trialParms, "r")
+            infile = open(config.trialParms, "r") 
             while 1:
                 s = infile.readline()
                 if s.find(blockName) >= 0:
@@ -88,10 +88,8 @@ def msgScreen(text, wait_time, screen, background):
     w, h = font.size(text)
     x, y = screen.get_rect().center
     screen.blit(s, (x - w/2, y - h/2))
-    time.sleep(1)
     pygame.display.update()
     time.sleep(wait_time)
-    #pygame.time.delay(time*1000)
     
 def run(blockList, screen, background):
     """
@@ -101,7 +99,6 @@ def run(blockList, screen, background):
     for block in blockList:
         for currentTrial in block:
             currentTrial.give(screen, background)
-
         # give rest between blocks, but not after last block
         if nblock < len(blockList):
             nblock += 1
@@ -128,45 +125,20 @@ def saveTrials(blockList, exp, sub):
         for currTrial in block:
             currTrial.printOut(ofile)
 
-def displaySplash(pic):
-    """
-    displays a widowed splash screen, with an image named in pic.
-    The screen is not fullscreen to enable TKinter objects to be overlayed
-    """
-    screen = pygame.display.set_mode((1024, 768), DOUBLEBUF)
-    # Fill background
-    background = pygame.Surface(screen.get_size())
-    background = background.convert()
-    background.fill(config.bg)
-    splash = field.load_image(pic)
-    spRect = splash.get_rect()
-    scRect = screen.get_rect()
-    background.blit(splash, (scRect.centerx - (spRect.width/2), scRect.centery - (spRect.height/2)))
-    screen.blit(background, (0, 0))
-    pygame.display.update()
-    
 def main():
 
-    #   displaySplash(config.splash)
-    #   Do TK stuff before going fullscreen
-    #   OK box does not appear on Linux?
     instruct("welcome.txt", "To continue click OK", "Illusion Experiment")
-    #pygame.display.update()
     experimenter = get_name("Type the Experimenter's name: Jane Doe", "Experimenter's name")
-    # pygame.display.update()
     subject = get_name("Type the Participant's name: Jane Doe", "Participant's name")
-    #pygame.display.update()
     instruct(config.instructions, "To continue click OK", "Instructions")
     pygame.init()   
     #   Reset screen properties to highest res full screen and double buffered
     modes = pygame.display.list_modes()
     # modes[0] is too high a res for some machines -- step back to modes[1]    
-
-    
     if config.dbuf == True:
-        screen = pygame.display.set_mode(modes[7], pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.FULLSCREEN)
+        screen = pygame.display.set_mode(modes[0], pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.FULLSCREEN)
     else:
-        screen = pygame.display.set_mode(modes[7], pygame.FULLSCREEN)
+        screen = pygame.display.set_mode(modes[0], pygame.FULLSCREEN)
     screen = pygame.display.get_surface()
     background = pygame.Surface(screen.get_size())
     background = background.convert()
@@ -178,7 +150,6 @@ def main():
         run(practiceList, screen, background)
     msgScreen("Start Trials",5, screen, background)
     #   Make trials, run, and save
- #   msgScreen("Begin regular trials", 2)
     blockList = prepare(config.blockLables)
     run(blockList, screen, background)
     saveTrials(blockList, experimenter, subject)
